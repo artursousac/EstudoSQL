@@ -3,6 +3,9 @@
 -- Departamentos serão 1 - HR; 2 - Sales; 3 - Tech.
 -- Employees temos uma lista pre-definida com 4 empregados.
 -- Customers e Cars também já temos uma que utilizaremos.
+CREATE DATABASE mydb;
+
+USE mydb;
 
 CREATE TABLE Departments(
 	Id INT NOT NULL AUTO_INCREMENT,
@@ -26,19 +29,19 @@ CREATE TABLE Employees (
     ManagerId INT,
     DepartmentId INT NOT NULL,
     Salary INT NOT NULL,
-    HireDate DATETIME NOT NULL,
     PRIMARY KEY(Id),
     FOREIGN KEY(ManagerId) REFERENCES Employees(Id),
     FOREIGN KEY(DepartmentId) REFERENCES Departments(Id)
 );
+ALTER TABLE Employees DROP COLUMN HireDate;
 
 INSERT INTO Employees
-	(Id, FName, LName, PhoneNumber, ManagerId, DepartmentId, Salary, HireDate)
+	(Id, FName, LName, PhoneNumber, ManagerId, DepartmentId, Salary)
 VALUES
-	(1, 'James', 'Smith', 1234567890, NULL, 1, 1000, '01-01-2002'),
-	(2, 'John', 'Johnson', 2468101214, 1, 1, 400, '23-03-2005'),
-	(3, 'Michael', 'Williams', 1357911131, 1, 2, 600, '12-05-2009'),
-	(4, 'Johnathon', 'Smith', 1212121212, 2, 1, 500, '24-07-2016')
+	(1, 'James', 'Smith', 1234567890, NULL, 1, 1000),
+	(2, 'John', 'Johnson', 2468101214, 1, 1, 400),
+	(3, 'Michael', 'Williams', 1357911131, 1, 2, 600),
+	(4, 'Johnathon', 'Smith', 1212121212, 2, 1, 500)
 ;
 
 CREATE TABLE Customers(
@@ -79,6 +82,39 @@ VALUES
     ('3', '2', '1', 'Ford Mustang', 'WAITING', '100'),
     ('4', '3', '3', 'Toyota Prius', 'WORKING', '1254')
 ;
+
+SELECT * FROM Employees;
+SELECT * FROM Departments;
+
+SELECT
+	Employees.*, Departments.Name
+FROM
+Employees
+JOIN
+Departments
+ON Departments.Id = Employees.DepartmentId
+;
+
+SELECT
+	FName AS "First Name",
+    LName AS 'Last Name',
+    PhoneNumber AS 'Celular'
+FROM 
+	Employees
+;
+
+SELECT 
+	FName AS "First Name",
+    LName AS "Last Name"
+FROM
+	Employees
+ORDER BY
+	LName DESC
+;
+
+
+
+
 
 
 
